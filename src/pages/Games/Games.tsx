@@ -49,7 +49,7 @@ export default function Games() {
         </Box>
       </Box>
       <Tooltip title={t('add_game')} placement="top" arrow>
-        <Link to="/games" className="absolute bottom-12 right-12">
+        <Link to="/2chess/games" className="absolute bottom-12 right-12">
           <Fab color="primary" aria-label="add" className="shadow-lg">
             <AddRoundedIcon />
           </Fab>

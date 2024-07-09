@@ -62,33 +62,33 @@ const newGame: ActionFunction = async ({ request }) => {
     await db.games.update(id, { title: `Game #${id}` });
   }
 
-  return redirect(`/games/${id}`);
+  return redirect(`/2chess/games/${id}`);
 };
 
 const loadGame: LoaderFunction = async ({ params }) => {
   const game = await db.games.get(Number(params.gameId));
   if (game === undefined) {
-    return redirect('/404');
+    return redirect('/2chess/404');
   }
   return game;
 };
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/2chess/',
     element: <Layout />,
     children: [
       {
-        path: '/',
+        path: '/2chess/',
         element: <Games />,
       },
       {
-        path: '/games',
+        path: '/2chess/games',
         element: <NewGame />,
         action: newGame,
       },
       {
-        path: '/games/:gameId',
+        path: '/2chess/games/:gameId',
         element: <Game />,
         loader: loadGame,
       },

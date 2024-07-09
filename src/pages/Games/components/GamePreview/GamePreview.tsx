@@ -164,7 +164,7 @@ export default function GamePreview({ game, deleteGame }: GamePreviewProps) {
             size="compact"
             showTimer={timeControl != 0}
           />
-          <Link to={`/games/${gameId}`} className="flex w-full">
+          <Link to={`/2chess/games/${gameId}`} className="flex w-full">
             <CardActionArea>
               <CardMedia className="flex w-full aspect-square">
                 <Board fen={piecesFen} highlighted={highlighted} />

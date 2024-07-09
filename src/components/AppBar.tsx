@@ -42,7 +42,7 @@ export default function AppBar({
             </Toolbar>
           )}
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/">2Chess</Link>
+            <Link to="/2chess">2Chess</Link>
           </Typography>
           <Stack direction="row" spacing={2} className="items-center">
             {children}

@@ -1,5 +1,6 @@
 {
   "name": "chess-js",
+  "homepage": "https://gei-duo.github.io/2chess/",
   "private": true,
   "version": "0.0.0",
   "type": "module",

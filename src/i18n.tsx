@@ -31,7 +31,7 @@ i18n
   // Configure i18n (https://www.i18next.com/overview/configuration-options=
   .init<HttpBackendOptions>({
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json',
+      loadPath: '/2chess/locales/{{lng}}/{{ns}}.json',
     },
     fallbackLng: {
       'en-US': ['en'],
