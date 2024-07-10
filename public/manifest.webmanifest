@@ -3,10 +3,31 @@
   "short_name": "2Chess",
   "start_url": ".",
   "display": "standalone",
-  "categories": ["games", "board games"],
-  "background_color": "#fff",
-  "theme_color": "#fff",
+  "categories": ["entertainment", "games"],
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "any",
   "description": "Two player local chess game",
+  "screenshots": [
+    {
+      "src": "screenshots/games.png",
+      "sizes": "979x932",
+      "type": "image/png",
+      "label": "Homescreen"
+    },
+    {
+      "src": "screenshots/game.png",
+      "sizes": "979x932",
+      "type": "image/png",
+      "label": "Gameplay"
+    },
+    {
+      "src": "screenshots/newgame.png",
+      "sizes": "979x932",
+      "type": "image/png",
+      "label": "Game setup"
+    }
+  ],
   "icons": [
     {
       "src": "windows11/SmallTile.scale-100.png",
@@ -456,5 +477,16 @@
       "src": "ios/1024.png",
       "sizes": "1024x1024"
     }
-  ]
+  ],
+  "id": "2chess",
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "browser",
+    "fullscreen",
+    "window-controls-overlay"
+  ],
+  "dir": "auto",
+  "lang": "en",
+  "prefer_related_applications": true
 }
