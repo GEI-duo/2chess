@@ -27,7 +27,7 @@ export default function Games() {
       <MenuAppBar>
         <LanguageSwitcher />
         <NightModeToggle />
-        <Link to="https://github.com/GEI-duo/chess">
+        <Link to="https://github.com/GEI-duo/2chess">
           <GitHubIcon />
         </Link>
       </MenuAppBar>
