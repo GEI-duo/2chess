@@ -242,7 +242,10 @@ export default function Game() {
       )}
 
       {hasGameEnded && isLiveGame && (
-        <ResultsDialog game={game} onRematch={() => navigate('/games')} />
+        <ResultsDialog
+          game={game}
+          onRematch={() => navigate('/2chess/games')}
+        />
       )}
 
       {promoting && (
