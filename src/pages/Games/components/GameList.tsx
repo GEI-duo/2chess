@@ -17,20 +17,13 @@ import {
   sortedAtom,
   toDateAtom,
 } from '@/pages/Games/state/gameFilters';
-import {
-  Button,
-  CircularProgress,
-  IconButton,
-  Snackbar,
-  useTheme,
-} from '@mui/material';
+import { Button, CircularProgress, IconButton, Snackbar } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
 import { useCallback, useState } from 'react';
 import NewGameCard from './GamePreview/NewGameCard';
 
 export default function GameList() {
-  const theme = useTheme();
   const { t } = useTranslation();
 
   const [filters] = useAtom(filtersAtom);
