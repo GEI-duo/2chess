@@ -22,11 +22,12 @@ import {
   CircularProgress,
   IconButton,
   Snackbar,
-  Typography,
   useTheme,
 } from '@mui/material';
+
 import { useTranslation } from 'react-i18next';
 import { useCallback, useState } from 'react';
+import NewGameCard from './GamePreview/NewGameCard';
 
 export default function GameList() {
   const theme = useTheme();
@@ -108,17 +109,7 @@ export default function GameList() {
             <CircularProgress />
           </Box>
         )}
-        {games?.length === 0 && (
-          <Box className="text-center">
-            <Typography
-              sx={{
-                color: theme.palette.text.secondary,
-              }}
-            >
-              {t('no_games')}
-            </Typography>
-          </Box>
-        )}
+        <NewGameCard />
       </Box>
       <Snackbar
         open={deleteSnackbarOpen}

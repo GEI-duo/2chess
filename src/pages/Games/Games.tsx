@@ -17,6 +17,7 @@ import { filteredAtom } from './state/gameFilters';
 import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import Tooltip from '@mui/material/Tooltip';
+import GamePreviewSkeleton from './components/GamePreview/GamePreviewSkeleton';
 
 export default function Games() {
   const [filtered] = useAtom(filteredAtom);
