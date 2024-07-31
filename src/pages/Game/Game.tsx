@@ -129,7 +129,7 @@ export default function Game() {
   }, [togglePlay, hasGameEnded, isTimed]);
 
   const handleExit = () => {
-    navigate('/');
+    navigate('/2chess');
   };
 
   const handleRestart = (restart: boolean) => {
