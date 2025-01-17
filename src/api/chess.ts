@@ -1,5 +1,5 @@
 import * as FEN from '@/api/fen';
-import { CastlingAvailability } from '@/api/castling-availability';
+import GameCastlingAvailability from '@/api/CastlingAvailability';
 import { score } from '@/api/score.ts';
 import { checkSpecialMove, move, moves, isKingAttacked } from '@/api/moves.ts';
 import { isWhite, otherColor } from '@/api/color.ts';
@@ -11,7 +11,7 @@ export const SQUARES: Coordinate[] = Array.from('12345678')
 export class Chess {
   private _pieces: BoardPiece;
   private _playerTurn: Color;
-  private _castlingAvailability: CastlingAvailability;
+  private _gameCastlingAvailability: GameCastlingAvailability;
   private _enPassantTarget: Coordinate;
   private _halfmoveClock: number;
   private _fullmoveNumber: number;
@@ -26,7 +26,7 @@ export class Chess {
   ) {
     this._pieces = FEN.parsePieces(fen);
     this._playerTurn = FEN.parsePlayer(fen);
-    this._castlingAvailability = FEN.parseCastlingRights(fen);
+    this._gameCastlingAvailability = FEN.parseCastlingAvailability(fen);
     this._enPassantTarget = FEN.parseEnPassantTarget(fen);
     this._halfmoveClock = FEN.parseHalfMoveClock(fen);
     this._fullmoveNumber = FEN.parseFullMoveNumber(fen);
@@ -43,8 +43,8 @@ export class Chess {
     return this._playerTurn;
   }
 
-  castlingAvailability(): CastlingAvailability {
-    return this._castlingAvailability;
+  castlingAvailability(): GameCastlingAvailability {
+    return this._gameCastlingAvailability;
   }
 
   pieces(): BoardPiece {

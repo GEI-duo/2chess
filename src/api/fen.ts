@@ -3,7 +3,7 @@ import {
   coordinateRowNumber,
   indexToCoordinate,
 } from '@/api/coordinates';
-import { CastlingAvailability } from '@/api/castling-availability';
+import GameCastlingAvailability, { CastlingAvailability } from '@/api/CastlingAvailability';
 import { Chess } from '@/api/chess';
 
 function splitFEN(fen: string): string[] {
@@ -59,7 +59,7 @@ export function parsePlayer(fen: string): Color {
   return playerFEN.charAt(0) === 'w' ? 'white' : 'black';
 }
 
-export function parseCastlingRights(fen: string): CastlingAvailability {
+export function parseCastlingAvailability(fen: string): GameCastlingAvailability {
   const castlingRightsFEN = splitFEN(fen)[2];
   if (castlingRightsFEN.length < 1 || 4 < castlingRightsFEN.length) {
     throw new Error(
@@ -69,11 +69,17 @@ export function parseCastlingRights(fen: string): CastlingAvailability {
     );
   }
 
-  return new CastlingAvailability(
-    castlingRightsFEN.includes('K'),
-    castlingRightsFEN.includes('Q'),
-    castlingRightsFEN.includes('k'),
-    castlingRightsFEN.includes('q'),
+  return new GameCastlingAvailability(
+    {
+      white: new CastlingAvailability(
+        castlingRightsFEN.includes('K'),
+        castlingRightsFEN.includes('Q'),
+      ),
+      black: new CastlingAvailability(
+        castlingRightsFEN.includes('k'),
+        castlingRightsFEN.includes('q'),
+      )
+    }
   );
 }
 
