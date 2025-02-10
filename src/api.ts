@@ -84,15 +84,15 @@ export function getBlackCapturedPieces(): CapturedPieces {
   return chess.blackCaptured();
 }
 
-function score(): number {
+function score(): Number {
   return chess.score();
 }
 
-export function getWhiteScore(): number {
+export function getWhiteScore(): Number {
   return score();
 }
 
-export function getBlackScore(): number {
+export function getBlackScore(): Number {
   return -score();
 }
 

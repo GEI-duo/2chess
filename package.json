@@ -23,6 +23,8 @@
     "@mui/icons-material": "^5.15.2",
     "@mui/material": "^5.15.2",
     "@mui/x-date-pickers": "^6.19.4",
+    "brandi": "^5.0.0",
+    "brandi-react": "^5.0.0",
     "chess.js": "1.0.0-beta.7",
     "dayjs": "^1.11.10",
     "dexie": "^3.2.4",

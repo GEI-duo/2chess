@@ -1,8 +1,9 @@
 import * as FEN from '@/api/fen';
 import GameCastlingAvailability from '@/api/CastlingAvailability';
-import { score } from '@/api/score.ts';
 import { checkSpecialMove, move, moves, isKingAttacked } from '@/api/moves.ts';
 import { isWhite, otherColor } from '@/api/color.ts';
+import { inject } from './di/container';
+import TOKENS from './di/tokens';
 
 export const SQUARES: Coordinate[] = Array.from('12345678')
   .map(rank => Array.from('abcdefgh').map(file => `${file}${rank}`))
@@ -16,13 +17,13 @@ export class Chess {
   private _halfmoveClock: number;
   private _fullmoveNumber: number;
 
-  private _whiteCaptured: CapturedPieces;
-  private _blackCaptured: CapturedPieces;
-
   constructor(
     fen: string,
-    whiteCaptured: CapturedPieces,
-    blackCaptured: CapturedPieces,
+    private _whiteCaptured: CapturedPieces,
+    private _blackCaptured: CapturedPieces,
+
+    private _scores_calculator = inject(TOKENS.ScoresCalculator),
+    private _moves_calculator = inject(TOKENS.MovesCalculator),
   ) {
     this._pieces = FEN.parsePieces(fen);
     this._playerTurn = FEN.parsePlayer(fen);
@@ -30,9 +31,6 @@ export class Chess {
     this._enPassantTarget = FEN.parseEnPassantTarget(fen);
     this._halfmoveClock = FEN.parseHalfMoveClock(fen);
     this._fullmoveNumber = FEN.parseFullMoveNumber(fen);
-
-    this._whiteCaptured = whiteCaptured;
-    this._blackCaptured = blackCaptured;
   }
 
   fen(): FenString {
@@ -75,8 +73,8 @@ export class Chess {
     return this._blackCaptured;
   }
 
-  score(): number {
-    return score(this.whiteCaptured(), this.blackCaptured());
+  score(): Number {
+    return this._scores_calculator.calculate(this);
   }
 
   addCaptured(piece: Piece) {
