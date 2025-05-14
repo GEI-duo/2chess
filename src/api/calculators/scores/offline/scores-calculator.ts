@@ -1,30 +1,26 @@
 import { Chess } from '@/api/chess';
 import Calculator from '@/api/interfaces/calculator';
 
-class ScoresCalculator implements Calculator<Number> {
-  calculate(chess: Chess): Number {
+class ScoresCalculator implements Calculator<number> {
+  calculate(chess: Chess): number {
     return this.score(chess.whiteCaptured(), chess.blackCaptured());
   }
 
   private pieceScore(piece: Piece): number {
     switch (piece) {
       case 'p':
-        return 1;
       case 'P':
-        return -1;
+        return 1;
       case 'r':
-        return 5;
       case 'R':
-        return -5;
+        return 5;
       case 'N':
       case 'B':
-        return -3;
       case 'n':
       case 'b':
         return 3;
-      case 'Q':
-        return -10;
       case 'q':
+      case 'Q':
         return 10;
       default:
         return 0;
