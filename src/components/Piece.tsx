@@ -34,11 +34,13 @@ const Piece = memo(({ piece, clone }: PieceProps) => {
   };
   const Figure = piece ? figureMap[piece] : () => <></>;
 
+  !Figure && console.warn("No piece for " + piece)
+
   const scale = clone ? 1.1 : 1;
 
   return (
     <Figure
-      className="flex h-full max-w-full"
+      className="flex h-full w-full max-h-full max-w-full"
       style={{ transform: `scale(${scale})` }}
     />
   );
