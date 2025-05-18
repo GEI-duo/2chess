@@ -188,7 +188,7 @@ function isLegalMove(
   chess: Chess,
   checkForMates: boolean,
 ): boolean {
-  const board = chess.pieces();
+  const board = chess.pieces;
   const fromPiece = board[from];
   const toPiece = board[to];
 
@@ -223,7 +223,7 @@ function isLegalMove(
         return dX !== 0;
       } else {
         // Empty square
-        if (dX !== 0 && chess.enPassantTarget() == to) return true;
+        if (dX !== 0 && chess.enPassantTarget == to) return true;
         const dY = coordinateRowNumber(to) - coordinateRowNumber(from);
         if (dY === 2 || dY === -2) {
           const fromRow = dY > 0 ? 1 : 6;
@@ -251,7 +251,7 @@ function isLegalMove(
         )!;
 
         const availability = chess
-          .castlingAvailability()
+          .castlingAvailability
           .getValues(getColor(fromPiece!));
         return isSafeMove(from, dangerousTrailCoord, chess) && dX === 2
           ? availability.K
@@ -279,7 +279,7 @@ export function isKingAttacked(kingColor: Color, chess: Chess): boolean {
 
 function isSafeMove(from: Coordinate, to: Coordinate, chess: Chess): boolean {
   // Check if the move puts the king in check
-  const board = chess.pieces();
+  const board = chess.pieces;
   const fromPiece = board[from]!;
   const toPiece = board[to];
 
@@ -308,8 +308,8 @@ export function checkSpecialMove(
   to: Coordinate,
 ) {
   /* ========= Useful move information ========= */
-  const fromPiece = chess.pieces()[from]!;
-  const toPiece = chess.pieces()[to];
+  const fromPiece = chess.pieces[from]!;
+  const toPiece = chess.pieces[to];
   const dX = coordinateColumnNumber(to) - coordinateColumnNumber(from);
   const dY = coordinateRowNumber(to) - coordinateRowNumber(from);
 
@@ -317,23 +317,23 @@ export function checkSpecialMove(
 
   switch (fromPiece.toLowerCase()) {
     case 'p': {
-      chess.resetHalfmoveClock();
+      chess.halfMoveClock = 0;
       const dir = isWhite(fromPiece) ? 1 : -1;
-      if (to === chess.enPassantTarget()) {
+      if (to === chess.enPassantTarget) {
         // Capture the correct piece when doing en passant
         const passedCoord = vecToCoordinate([0, -dir], to)!;
-        const enPassantPawn = chess.pieces()[passedCoord];
+        const enPassantPawn = chess.pieces[passedCoord];
         chess.addCaptured(enPassantPawn!);
-        chess.pieces()[passedCoord] = undefined;
+        chess.pieces[passedCoord] = undefined;
       }
       if (Math.abs(dY) === 2) {
-        chess.setEnPassantTarget(vecToCoordinate([0, dir], from)!);
+        chess.enPassantTarget = vecToCoordinate([0, dir], from)!;
         updatedEnPassant = true;
       }
       break;
     }
     case 'k': {
-      chess.castlingAvailability().disableColor(getColor(fromPiece));
+      chess.castlingAvailability.disableColor(getColor(fromPiece));
       if (Math.abs(dX) === 2) {
         const rookFrom = vecToCoordinate([dX > 0 ? 3 : -4, 0], from)!;
         const rookTo = vecToCoordinate([dX > 0 ? -1 : 1, 0], to)!;
@@ -342,10 +342,11 @@ export function checkSpecialMove(
       break;
     }
     case 'r': {
-      if (from == 'h1' || from == 'h8') {
-        chess.castlingAvailability().disableQueen(getColor(fromPiece));
-      } else if (from == 'a1' || from == 'a8') {
-        chess.castlingAvailability().disableKing(getColor(fromPiece));
+      const color = getColor(fromPiece);
+      if ((color === 'white' && from === 'h1') || (color === 'black' && from === 'h8')) {
+        chess.castlingAvailability.disableKing(color);
+      } else if ((color === 'white' && from === 'a1') || (color === 'black' && from === 'a8')) {
+        chess.castlingAvailability.disableQueen(color);
       }
       break;
     }
@@ -353,15 +354,17 @@ export function checkSpecialMove(
 
   // An en passant target is only valid for one move, so reset it
   if (!updatedEnPassant) {
-    chess.setEnPassantTarget('-' as Coordinate);
+    chess.enPassantTarget = '-' as Coordinate;
   }
 
   if (toPiece?.toLowerCase() === 'r') {
-    // Captured a rook, disable castling for the enemy
-    if (to == 'h1' || to == 'h8') {
-      chess.castlingAvailability().disableKing(getColor(toPiece));
-    } else if (to == 'a1' || to == 'a8') {
-      chess.castlingAvailability().disableQueen(getColor(toPiece));
+    const capturedColor = getColor(toPiece); // Color of the captured rook
+
+    // Disable castling for the captured rook's color
+    if ((capturedColor === 'white' && to === 'h1') || (capturedColor === 'black' && to === 'h8')) {
+      chess.castlingAvailability.disableKing(capturedColor);
+    } else if ((capturedColor === 'white' && to === 'a1') || (capturedColor === 'black' && to === 'a8')) {
+      chess.castlingAvailability.disableQueen(capturedColor);
     }
   }
 }
@@ -371,7 +374,7 @@ export function moves(
   chess: Chess,
   check_for_mates: boolean,
 ): Coordinate[] {
-  const piece = chess.pieces()[square];
+  const piece = chess.pieces[square];
   if (piece === undefined) return [];
   return movesLUT
     .get(piece.toLowerCase())!
@@ -385,7 +388,7 @@ export function moves(
 }
 
 export function move(chess: Chess, from: Coordinate, to: Coordinate) {
-  const pieces = chess.pieces();
+  const pieces = chess.pieces;
   pieces[to] = pieces[from];
   pieces[from] = undefined;
 }

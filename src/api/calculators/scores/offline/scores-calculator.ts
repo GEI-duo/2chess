@@ -3,7 +3,7 @@ import Calculator from '@/api/interfaces/calculator';
 
 class ScoresCalculator implements Calculator<number> {
   calculate(chess: Chess): number {
-    return this.score(chess.whiteCaptured(), chess.blackCaptured());
+    return this.score(chess.whiteCaptured, chess.blackCaptured);
   }
 
   private pieceScore(piece: Piece): number {

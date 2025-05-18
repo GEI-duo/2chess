@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import * as api from '@/api';
 import { db } from '@/db';
 
+
 interface GameStore {
   // GLOBAL
   id: number;
@@ -103,9 +104,7 @@ export default function createGameStore(game: Game) {
 
   api.init(
     gameState.fen,
-    new Map(gameState.whiteCaptures),
-    new Map(gameState.blackCaptures),
-    true,
+    true
   );
   const turn = api.turn();
   const piecesFen = api.piecesFen();
@@ -146,11 +145,7 @@ export default function createGameStore(game: Game) {
         history: [history[0]],
       });
       const gameState = history[0];
-      api.init(
-        gameState.fen,
-        new Map(gameState.whiteCaptures),
-        new Map(gameState.blackCaptures),
-      );
+      api.init(gameState.fen);
     },
     surrender: () => {
       const state = get();
@@ -235,8 +230,6 @@ export default function createGameStore(game: Game) {
       const gameState = state.history[index];
       api.init(
         gameState.fen,
-        new Map(gameState.whiteCaptures),
-        new Map(gameState.blackCaptures),
       );
 
       const elapsed =

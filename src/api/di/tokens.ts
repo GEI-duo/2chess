@@ -1,9 +1,10 @@
 import { token } from 'brandi';
-import Calculator from '../interfaces/calculator';
+import Calculator from '@/api/interfaces/calculator';
+import Serializer from '@/api//interfaces/serializers';
+import { Chess } from '@/api/chess';
 
-const TOKENS = {
+export const TOKENS = {
   MovesCalculator: token<Calculator<Moves>>('MovesCalculator'),
-  ScoresCalculator: token<Calculator<Number>>('ScoresCalculator'),
+  ScoresCalculator: token<Calculator<number>>('ScoresCalculator'),
+  ChessSerializer: token<Serializer<Chess>>('ChessSerializer'),
 };
-
-export default TOKENS;

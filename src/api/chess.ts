@@ -1,81 +1,43 @@
-import * as FEN from '@/api/fen';
 import GameCastlingAvailability from '@/api/CastlingAvailability';
 import { checkSpecialMove, move, moves, isKingAttacked } from '@/api/moves.ts';
 import { isWhite, otherColor } from '@/api/color.ts';
 import { inject } from './di/container';
-import TOKENS from './di/tokens';
+import { TOKENS } from './di/tokens';
+import Calculator from './interfaces/calculator';
+import Serializer from './interfaces/serializers';
 
 export const SQUARES: Coordinate[] = Array.from('12345678')
   .map(rank => Array.from('abcdefgh').map(file => `${file}${rank}`))
   .flat() as Coordinate[];
 
 export class Chess {
-  private _pieces: BoardPiece;
-  private _playerTurn: Color;
-  private _gameCastlingAvailability: GameCastlingAvailability;
-  private _enPassantTarget: Coordinate;
-  private _halfmoveClock: number;
-  private _fullmoveNumber: number;
-
   constructor(
-    fen: string,
+    private _pieces: BoardPiece,
+    private _playerTurn: Color,
+    private _gameCastlingAvailability: GameCastlingAvailability,
+    private _enPassantTarget: Coordinate,
     private _whiteCaptured: CapturedPieces,
     private _blackCaptured: CapturedPieces,
+    public halfMoveClock: number,
+    public fullMoveNumber: number,
 
-    private _scores_calculator = inject(TOKENS.ScoresCalculator),
-    private _moves_calculator = inject(TOKENS.MovesCalculator),
-  ) {
-    this._pieces = FEN.parsePieces(fen);
-    this._playerTurn = FEN.parsePlayer(fen);
-    this._gameCastlingAvailability = FEN.parseCastlingAvailability(fen);
-    this._enPassantTarget = FEN.parseEnPassantTarget(fen);
-    this._halfmoveClock = FEN.parseHalfMoveClock(fen);
-    this._fullmoveNumber = FEN.parseFullMoveNumber(fen);
-  }
+    private _scores_calculator: Calculator<number> = inject(TOKENS.ScoresCalculator),
+    // private _moves_calculator: Calculator<Moves> = inject(TOKENS.MovesCalculator), TODO
+    private _fen_calculator: Serializer<Chess> = inject(TOKENS.ChessSerializer),
+  ) { }
 
-  fen(): FenString {
-    return FEN.toFEN(this);
-  }
+  get fen(): FenString { return this._fen_calculator.serialize(this); }
+  get turn(): Color { return this._playerTurn; }
+  get castlingAvailability(): GameCastlingAvailability { return this._gameCastlingAvailability; }
+  get pieces(): BoardPiece { return this._pieces; }
+  get enPassantTarget(): Coordinate { return this._enPassantTarget; }
+  get whiteCaptured(): CapturedPieces { return this._whiteCaptured; }
+  get blackCaptured(): CapturedPieces { return this._blackCaptured; }
+  get score(): number { return this._scores_calculator.calculate(this); }
+  get isCheck(): boolean { return isKingAttacked(this._playerTurn, this); }
+  get isFiftyMoves(): boolean { return this.halfMoveClock >= 50; }
 
-  turn(): Color {
-    return this._playerTurn;
-  }
-
-  castlingAvailability(): GameCastlingAvailability {
-    return this._gameCastlingAvailability;
-  }
-
-  pieces(): BoardPiece {
-    return this._pieces;
-  }
-
-  enPassantTarget(): Coordinate {
-    return this._enPassantTarget;
-  }
-
-  setEnPassantTarget(coord: Coordinate) {
-    this._enPassantTarget = coord;
-  }
-
-  halfmoveClock(): number {
-    return this._halfmoveClock;
-  }
-
-  fullmoveNumber(): number {
-    return this._fullmoveNumber;
-  }
-
-  whiteCaptured(): CapturedPieces {
-    return this._whiteCaptured;
-  }
-
-  blackCaptured(): CapturedPieces {
-    return this._blackCaptured;
-  }
-
-  score(): Number {
-    return this._scores_calculator.calculate(this);
-  }
+  set enPassantTarget(coordinate: Coordinate) { this._enPassantTarget = coordinate; }
 
   addCaptured(piece: Piece) {
     const capturedPieces = isWhite(piece)
@@ -91,11 +53,11 @@ export class Chess {
     try {
       const toPiece = this._pieces[to];
 
-      this.increaseHalfmoveClock();
+      this.halfMoveClock += 1;
 
       if (toPiece !== undefined) {
         this.addCaptured(toPiece);
-        this.resetHalfmoveClock();
+        this.halfMoveClock = 0;
       }
       checkSpecialMove(this, from, to);
 
@@ -110,14 +72,6 @@ export class Chess {
       return false;
     }
     return true;
-  }
-
-  resetHalfmoveClock() {
-    this._halfmoveClock = 0;
-  }
-
-  increaseHalfmoveClock(value: number = 1) {
-    this._halfmoveClock += value;
   }
 
   moves(
@@ -136,10 +90,6 @@ export class Chess {
       }
     }
     return '-';
-  }
-
-  isCheck(): boolean {
-    return isKingAttacked(this._playerTurn, this);
   }
 
   isInsufficientMaterial(): boolean {
@@ -168,9 +118,5 @@ export class Chess {
     };
 
     return !isEnough(whitePieces) && !isEnough(blackPieces);
-  }
-
-  isFiftyMoves(): boolean {
-    return this._halfmoveClock >= 50;
   }
 }

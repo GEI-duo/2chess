@@ -1,5 +1,5 @@
 import { Container } from 'brandi';
-import TOKENS from './tokens';
+import { TOKENS } from './tokens';
 
 import Factory from './factories/offline';
 
@@ -14,6 +14,11 @@ container
 container
   .bind(TOKENS.ScoresCalculator)
   .toInstance(factory.scores_calculator())
+  .inSingletonScope();
+
+container
+  .bind(TOKENS.ChessSerializer)
+  .toInstance(factory.chess_serializer())
   .inSingletonScope();
 
 function inject(key: any) {
