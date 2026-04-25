@@ -1,5 +1,5 @@
-import Dexie, { Table } from 'dexie';
 import dayjs, { Dayjs } from 'dayjs';
+import Dexie, { Table } from 'dexie';
 import pkg from 'flexsearch';
 const { Document } = pkg;
 
@@ -154,7 +154,6 @@ export const getFilteredGames = async ({
 
   const document = new Document({
     tokenize: 'full',
-    optimize: true,
     resolution: 9,
     document: {
       id: 'id',

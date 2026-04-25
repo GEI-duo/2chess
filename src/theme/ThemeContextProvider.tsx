@@ -1,24 +1,19 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { ReactNode, createContext, useMemo, useState } from 'react';
-import { themeOptions } from '@/theme/theme.tsx';
+import { ReactNode, useMemo, useState } from 'react';
 import { useMediaQuery } from '@mui/material';
+import { enUS as coreEN, esES as coreES } from '@mui/material/locale';
+import { createTheme,ThemeProvider } from '@mui/material/styles';
+import { enUS as dateEN, esES as dateES } from '@mui/x-date-pickers/locales';
 import { useTranslation } from 'react-i18next';
-import { esES as coreES, enUS as coreEN } from '@mui/material/locale';
-import { esES as dateES, enUS as dateEN } from '@mui/x-date-pickers/locales';
 
-type ThemeContextType = {
-  switchColorMode: () => void;
-};
+import { themeOptions } from '@/theme/theme.tsx';
+
+import { ThemeContext } from './ThemeContext';
 
 type ThemeProviderProps = {
   children: ReactNode;
 };
 
 type ColorMode = 'light' | 'dark';
-
-export const ThemeContext = createContext<ThemeContextType>({
-  switchColorMode: () => {},
-});
 
 const locales = {
   es: [coreES, dateES],

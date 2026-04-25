@@ -1,18 +1,19 @@
-import { db } from '@/db';
-import ErrorPage from '@/pages/ErrorPage/ErrorPage';
-import Game from '@/pages/Game/Game';
-import Layout from '@/pages/Layout';
-import NewGame from '@/pages/NewGame/NewGame';
-
+import { lazy, Suspense } from 'react';
 import type { ActionFunction } from 'react-router-dom';
-
 import {
-  LoaderFunction,
-  RouterProvider,
   createBrowserRouter,
+  LoaderFunction,
   redirect,
+  RouterProvider,
 } from 'react-router-dom';
-import Games from '@/pages/Games/Games';
+
+import { db } from '@/db';
+
+const ErrorPage = lazy(() => import('@/pages/ErrorPage/ErrorPage'));
+const Game = lazy(() => import('@/pages/Game/Game'));
+const Layout = lazy(() => import('@/pages/Layout'));
+const NewGame = lazy(() => import('@/pages/NewGame/NewGame'));
+const Games = lazy(() => import('@/pages/Games/Games'));
 
 interface newGameFormData {
   whiteName: string;
@@ -76,25 +77,45 @@ const loadGame: LoaderFunction = async ({ params }) => {
 const router = createBrowserRouter([
   {
     path: '/2chess/',
-    element: <Layout />,
+    element: (
+      <Suspense fallback={null}>
+        <Layout />
+      </Suspense>
+    ),
     children: [
       {
         path: '/2chess/',
-        element: <Games />,
+        element: (
+          <Suspense fallback={null}>
+            <Games />
+          </Suspense>
+        ),
       },
       {
         path: '/2chess/games',
-        element: <NewGame />,
+        element: (
+          <Suspense fallback={null}>
+            <NewGame />
+          </Suspense>
+        ),
         action: newGame,
       },
       {
         path: '/2chess/games/:gameId',
-        element: <Game />,
+        element: (
+          <Suspense fallback={null}>
+            <Game />
+          </Suspense>
+        ),
         loader: loadGame,
       },
       {
         path: '*',
-        element: <ErrorPage />,
+        element: (
+          <Suspense fallback={null}>
+            <ErrorPage />
+          </Suspense>
+        ),
       },
     ],
   },

@@ -1,12 +1,14 @@
+import GameCastlingAvailability, {
+  CastlingAvailability,
+} from '@/api/CastlingAvailability';
+import { Chess } from '@/api/chess';
 import {
   coordinateColumnNumber,
   coordinateRowNumber,
   indexToCoordinate,
 } from '@/api/coordinates';
-import GameCastlingAvailability, { CastlingAvailability } from '@/api/CastlingAvailability';
-import { Chess } from '@/api/chess';
-import Serializer from '../interfaces/serializers';
 import { isWhite } from '../color';
+import Serializer from '../interfaces/serializers';
 
 const BOARD_SIZE = 8;
 const FEN_FIELDS = 6;
@@ -14,14 +16,30 @@ const EMPTY_SQUARE = '-';
 
 function getCapturedPieces(fen: PiecesFenString): CapturedPieces {
   const initialCounts: Record<string, number> = {
-    P: 8, N: 2, B: 2, R: 2, Q: 1,
-    p: 8, n: 2, b: 2, r: 2, q: 1,
+    P: 8,
+    N: 2,
+    B: 2,
+    R: 2,
+    Q: 1,
+    p: 8,
+    n: 2,
+    b: 2,
+    r: 2,
+    q: 1,
   };
 
   // Count pieces on the board
   const boardCounts: Record<string, number> = {
-    P: 0, N: 0, B: 0, R: 0, Q: 0,
-    p: 0, n: 0, b: 0, r: 0, q: 0,
+    P: 0,
+    N: 0,
+    B: 0,
+    R: 0,
+    Q: 0,
+    p: 0,
+    n: 0,
+    b: 0,
+    r: 0,
+    q: 0,
   };
 
   for (const char of fen) {
@@ -54,7 +72,14 @@ class FenSerializer implements Serializer<Chess> {
 
   deserialize(fen: string): Chess {
     const fields = this.splitFEN(fen);
-    const [piecesFEN, playerFEN, castlingFEN, enPassantFEN, halfMoveFEN, fullMoveFEN] = fields;
+    const [
+      piecesFEN,
+      playerFEN,
+      castlingFEN,
+      enPassantFEN,
+      halfMoveFEN,
+      fullMoveFEN,
+    ] = fields;
 
     const pieces = this.parsePieces(piecesFEN);
     const turn = playerFEN === 'w' ? 'white' : 'black';
@@ -78,29 +103,40 @@ class FenSerializer implements Serializer<Chess> {
     const fullMoveNumber = parseInt(fullMoveFEN, 10);
 
     if (isNaN(halfMoveClock) || isNaN(fullMoveNumber)) {
-      throw new Error(`Invalid move clock values: ${halfMoveFEN}, ${fullMoveFEN}`);
+      throw new Error(
+        `Invalid move clock values: ${halfMoveFEN}, ${fullMoveFEN}`,
+      );
     }
 
-    const capturedPieces = getCapturedPieces(piecesFEN)
-    const filterCaptured = (captured: CapturedPieces, color: Color): CapturedPieces => 
-      new Map(Array.from(captured.entries()).filter(([piece]) => color === 'white' ? isWhite(piece) : !isWhite(piece)))
+    const capturedPieces = getCapturedPieces(piecesFEN);
+    const filterCaptured = (
+      captured: CapturedPieces,
+      color: Color,
+    ): CapturedPieces =>
+      new Map(
+        Array.from(captured.entries()).filter(([piece]) =>
+          color === 'white' ? isWhite(piece) : !isWhite(piece),
+        ),
+      );
 
     return new Chess(
       pieces,
       turn,
       castlingAvailability,
       enPassantFEN as Coordinate,
-      filterCaptured(capturedPieces, "white"),
-      filterCaptured(capturedPieces, "black"),
+      filterCaptured(capturedPieces, 'white'),
+      filterCaptured(capturedPieces, 'black'),
       halfMoveClock,
-      fullMoveNumber
+      fullMoveNumber,
     );
   }
 
   private splitFEN(fen: string): string[] {
     const fields = fen.trim().split(' ');
     if (fields.length !== FEN_FIELDS) {
-      throw new Error(`FEN string expected ${FEN_FIELDS} fields, got ${fields.length}`);
+      throw new Error(
+        `FEN string expected ${FEN_FIELDS} fields, got ${fields.length}`,
+      );
     }
     return fields;
   }
@@ -108,7 +144,9 @@ class FenSerializer implements Serializer<Chess> {
   private parsePieces(piecesFEN: string): BoardPiece {
     const rows = piecesFEN.split('/');
     if (rows.length !== BOARD_SIZE) {
-      throw new Error(`FEN piece string expected ${BOARD_SIZE} rows, got ${rows.length}`);
+      throw new Error(
+        `FEN piece string expected ${BOARD_SIZE} rows, got ${rows.length}`,
+      );
     }
 
     const pieces: BoardPiece = {};
@@ -135,8 +173,9 @@ class FenSerializer implements Serializer<Chess> {
   }
 
   private serializePieces(pieces: BoardPiece): string {
-    const grid: (Piece | undefined)[][] = Array.from({ length: BOARD_SIZE }, () =>
-      new Array(BOARD_SIZE).fill(undefined)
+    const grid: (Piece | undefined)[][] = Array.from(
+      { length: BOARD_SIZE },
+      () => new Array(BOARD_SIZE).fill(undefined),
     );
 
     for (const key in pieces) {

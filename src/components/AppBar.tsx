@@ -1,13 +1,13 @@
+import React from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Stack } from '@mui/material';
 import MUIAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Stack } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 interface AppBarProps {
   showMenu?: boolean;

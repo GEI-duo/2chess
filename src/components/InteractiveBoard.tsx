@@ -1,3 +1,4 @@
+import { memo, useCallback, useState } from 'react';
 import {
   DndContext,
   DragOverEvent,
@@ -7,11 +8,11 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import Piece from './Piece';
-import { memo, useCallback, useState } from 'react';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
-import Board from './Board';
 import { Paper } from '@mui/material';
+
+import Board from './Board';
+import Piece from './Piece';
 
 interface InteractiveBoardProps {
   fen: FenString;

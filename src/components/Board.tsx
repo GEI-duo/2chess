@@ -1,6 +1,7 @@
-import Cell from '@/components/Cell';
-import { Box } from '@mui/material';
 import { memo, useEffect, useMemo } from 'react';
+import { Box } from '@mui/material';
+
+import Cell from '@/components/Cell';
 
 function numberToChar(num: number): string {
   if (num < 0 || num > 25) {

@@ -1,27 +1,27 @@
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-
-import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { useState } from 'react';
 import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import MoreTimeRoundedIcon from '@mui/icons-material/MoreTimeRounded';
-import { useTranslation } from 'react-i18next';
+import { Typography } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import Slider from '@mui/material/Slider';
+import TextField from '@mui/material/TextField';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { DateValidationError } from '@mui/x-date-pickers';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useAtom } from 'jotai';
+import { useTranslation } from 'react-i18next';
+
 import {
   filtersAtom,
   fromDateAtom,
-  toDateAtom,
-  playTimeAtom,
   incrementAtom,
+  playTimeAtom,
+  toDateAtom,
 } from '@/pages/Games/state/gameFilters';
-import { Typography } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useState } from 'react';
-import { DateValidationError } from '@mui/x-date-pickers';
 
 function distributed_marks(labels: string[]) {
   return labels.map((label, index) => ({
@@ -411,7 +411,7 @@ export default function GameFilter() {
             },
           }}
           className="flex-1"
-          minDate={fromDate}
+          minDate={fromDate ?? undefined}
           disableFuture
           label={t('end_date')}
         />

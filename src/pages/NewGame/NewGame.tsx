@@ -1,13 +1,13 @@
 import { useState } from 'react';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 import { Form } from 'react-router-dom';
+
 import MenuAppBar from '@/components/AppBar';
 import UserProfile from '@/components/UserProfile';
-import { useTranslation } from 'react-i18next';
 
 export default function NewGame() {
   const { t } = useTranslation();
@@ -75,7 +75,7 @@ export default function NewGame() {
                 type="number"
                 variant="filled"
                 value={minutes}
-                InputProps={{ inputProps: { min: 0 } }}
+                slotProps={{ htmlInput: { min: 0 } }}
                 onChange={e => setMinutes(e.target.value as unknown as number)}
                 onBlur={e => e.target.value === '' && setMinutes(0)}
                 className="flex-1"
@@ -87,7 +87,7 @@ export default function NewGame() {
                 type="number"
                 variant="filled"
                 value={seconds}
-                InputProps={{ inputProps: { min: 0, max: 59 } }}
+                slotProps={{ htmlInput: { min: 0, max: 59 } }}
                 onChange={e => setSeconds(e.target.value as unknown as number)}
                 onBlur={e => e.target.value === '' && setSeconds(0)}
                 className="flex-1"
@@ -99,7 +99,7 @@ export default function NewGame() {
                 type="number"
                 variant="filled"
                 value={increment}
-                InputProps={{ inputProps: { min: 0 } }}
+                slotProps={{ htmlInput: { min: 0 } }}
                 onChange={e =>
                   setIncrement(e.target.value as unknown as number)
                 }

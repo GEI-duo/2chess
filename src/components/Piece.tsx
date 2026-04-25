@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import BlackBishop from '@/assets/pieces/black-bishop.svg?react';
 import BlackKing from '@/assets/pieces/black-king.svg?react';
 import BlackKnight from '@/assets/pieces/black-knight.svg?react';
@@ -10,7 +12,6 @@ import WhiteKnight from '@/assets/pieces/white-knight.svg?react';
 import WhitePawn from '@/assets/pieces/white-pawn.svg?react';
 import WhiteQueen from '@/assets/pieces/white-queen.svg?react';
 import WhiteRook from '@/assets/pieces/white-rook.svg?react';
-import { memo } from 'react';
 
 interface PieceProps {
   piece?: Piece;
@@ -34,7 +35,9 @@ const Piece = memo(({ piece, clone }: PieceProps) => {
   };
   const Figure = piece ? figureMap[piece] : () => <></>;
 
-  !Figure && console.warn("No piece for " + piece)
+  if (!Figure) {
+    console.warn('No piece for ' + piece);
+  }
 
   const scale = clone ? 1.1 : 1;
 

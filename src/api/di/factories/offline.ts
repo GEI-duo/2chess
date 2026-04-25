@@ -25,7 +25,7 @@ class Factory {
   }
 
   public chess_serializer(): () => Serializer<Chess> {
-    return () => this._chess_serializer
+    return () => this._chess_serializer;
   }
 }
 

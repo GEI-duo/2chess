@@ -250,9 +250,9 @@ function isLegalMove(
           from,
         )!;
 
-        const availability = chess
-          .castlingAvailability
-          .getValues(getColor(fromPiece!));
+        const availability = chess.castlingAvailability.getValues(
+          getColor(fromPiece!),
+        );
         return isSafeMove(from, dangerousTrailCoord, chess) && dX === 2
           ? availability.K
           : availability.Q;
@@ -343,9 +343,15 @@ export function checkSpecialMove(
     }
     case 'r': {
       const color = getColor(fromPiece);
-      if ((color === 'white' && from === 'h1') || (color === 'black' && from === 'h8')) {
+      if (
+        (color === 'white' && from === 'h1') ||
+        (color === 'black' && from === 'h8')
+      ) {
         chess.castlingAvailability.disableKing(color);
-      } else if ((color === 'white' && from === 'a1') || (color === 'black' && from === 'a8')) {
+      } else if (
+        (color === 'white' && from === 'a1') ||
+        (color === 'black' && from === 'a8')
+      ) {
         chess.castlingAvailability.disableQueen(color);
       }
       break;
@@ -361,9 +367,15 @@ export function checkSpecialMove(
     const capturedColor = getColor(toPiece); // Color of the captured rook
 
     // Disable castling for the captured rook's color
-    if ((capturedColor === 'white' && to === 'h1') || (capturedColor === 'black' && to === 'h8')) {
+    if (
+      (capturedColor === 'white' && to === 'h1') ||
+      (capturedColor === 'black' && to === 'h8')
+    ) {
       chess.castlingAvailability.disableKing(capturedColor);
-    } else if ((capturedColor === 'white' && to === 'a1') || (capturedColor === 'black' && to === 'a8')) {
+    } else if (
+      (capturedColor === 'white' && to === 'a1') ||
+      (capturedColor === 'black' && to === 'a8')
+    ) {
       chess.castlingAvailability.disableQueen(capturedColor);
     }
   }

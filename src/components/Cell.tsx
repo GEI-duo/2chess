@@ -1,6 +1,7 @@
-import Piece from '@/components/Piece';
-import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { memo } from 'react';
+import { useDraggable, useDroppable } from '@dnd-kit/core';
+
+import Piece from '@/components/Piece';
 
 interface CellProps {
   id: Coordinate;
@@ -36,7 +37,7 @@ const Cell = memo(
     });
 
     function handleClick() {
-      handleCellClick && handleCellClick(id);
+      handleCellClick?.(id);
     }
 
     const bgColor =

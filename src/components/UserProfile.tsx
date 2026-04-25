@@ -1,6 +1,7 @@
-import Piece from '@/components/Piece';
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes, PropsWithChildren, ReactElement } from 'react';
 import { twMerge } from 'tailwind-merge';
+
+import Piece from '@/components/Piece';
 
 interface UserProfileProps {
   color: Color;
@@ -9,9 +10,9 @@ interface UserProfileProps {
 export default function UserProfile({
   color,
   className,
-}: React.PropsWithChildren<
+}: PropsWithChildren<
   HTMLAttributes<HTMLDivElement> & UserProfileProps
->): JSX.Element {
+>): ReactElement {
   return (
     <div className={twMerge('h-full aspect-square rounded-sm', className)}>
       <div

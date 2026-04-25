@@ -1,9 +1,9 @@
+import type { TypographyProps } from '@mui/material/Typography';
 import Typography from '@mui/material/Typography';
-import { Variant } from '@mui/material/styles/createTypography';
 
 interface TimerProps {
   time: number;
-  variant: Variant;
+  variant: NonNullable<TypographyProps['variant']>;
 }
 
 export default function Timer({ time, variant }: TimerProps) {

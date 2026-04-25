@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -5,12 +6,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-
-import { useState } from 'react';
-import UserProfile from '@/components/UserProfile';
-import { Form } from 'react-router-dom';
-import { db } from '@/db';
 import { useTranslation } from 'react-i18next';
+import { Form } from 'react-router-dom';
+
+import UserProfile from '@/components/UserProfile';
+import { db } from '@/db';
 
 interface GameEditDialogProps {
   gameId: number;

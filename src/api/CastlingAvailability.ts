@@ -8,8 +8,8 @@ export class CastlingAvailability {
   queenSide: boolean;
 
   constructor();
-  constructor(kingSide: boolean)
-  constructor(queenSide: boolean)
+  constructor(kingSide: boolean);
+  constructor(queenSide: boolean);
   constructor(kingSide: boolean, queenSide: boolean);
   constructor(kingSide?: boolean, queenSide?: boolean) {
     this.kingSide = kingSide ?? true;
@@ -40,7 +40,7 @@ export class CastlingAvailability {
     this.queenSide = false;
   }
 
-  getValues(): Values  {
+  getValues(): Values {
     return {
       K: this.kingSide,
       Q: this.queenSide,
@@ -49,11 +49,10 @@ export class CastlingAvailability {
 }
 
 export default class GameCastlingAvailability {
-  
-  availabilities: { [color in Color]: CastlingAvailability; };
-  
+  availabilities: { [color in Color]: CastlingAvailability };
+
   constructor(
-    availabilities: { [color in Color]: CastlingAvailability; } = {
+    availabilities: { [color in Color]: CastlingAvailability } = {
       white: new CastlingAvailability(),
       black: new CastlingAvailability(),
     },

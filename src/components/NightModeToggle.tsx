@@ -1,10 +1,11 @@
+import { useContext } from 'react';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
-import IconButton from '@mui/material/IconButton';
 import { Tooltip, useTheme } from '@mui/material';
-import { useContext } from 'react';
-import { ThemeContext } from '@/theme/ThemeContextProvider';
+import IconButton from '@mui/material/IconButton';
 import { useTranslation } from 'react-i18next';
+
+import { ThemeContext } from '@/theme/ThemeContext';
 
 export default function NightModeToggle() {
   const { switchColorMode } = useContext(ThemeContext);

@@ -1,3 +1,4 @@
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import {
   Card,
   CardActionArea,
@@ -8,7 +9,6 @@ import {
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { Link } from 'react-router-dom';
 
 export default function NewGameCard() {

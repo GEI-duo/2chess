@@ -1,8 +1,9 @@
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { IconButton, Tooltip } from '@mui/material';
 import { useAtom } from 'jotai';
-import { filteredAtom } from '../../state/gameFilters';
 import { useTranslation } from 'react-i18next';
+
+import { filteredAtom } from '../../state/gameFilters';
 
 export default function FilterButton() {
   const [enableFilter, setEnableFilter] = useAtom(filteredAtom);

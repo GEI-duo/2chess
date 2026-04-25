@@ -1,11 +1,12 @@
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { availableLanguages, getLanguageName } from '@/i18n';
-import dayjs from 'dayjs';
 import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded';
 import { Box } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
+
+import { availableLanguages, getLanguageName } from '@/i18n';
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();

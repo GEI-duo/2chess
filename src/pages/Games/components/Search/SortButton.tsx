@@ -1,4 +1,6 @@
+import React from 'react';
 import SortIcon from '@mui/icons-material/Sort';
+import { Tooltip } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
@@ -6,11 +8,9 @@ import Menu from '@mui/material/Menu';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { useAtom } from 'jotai';
-
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { sortedAtom } from '@/pages/Games/state/gameFilters';
-import { Tooltip } from '@mui/material';
 
 export default function SortButton() {
   const [sorted, setSorted] = useAtom(sortedAtom);

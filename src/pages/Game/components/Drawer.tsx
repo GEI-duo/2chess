@@ -1,16 +1,16 @@
-import MUIDrawer from '@mui/material/Drawer';
+import { Suspense } from 'react';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import MUIDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Box from '@mui/material/Box';
-import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
-import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { useTranslation } from 'react-i18next';
-import { Suspense } from 'react';
 
 interface DrawerProps {
   open: boolean;

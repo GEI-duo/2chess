@@ -1,23 +1,21 @@
-import Stats from '@/components/Stats';
-import BottomBar from '@/pages/Game/components/BottomBar';
-
-import { useEffect, useState } from 'react';
-
-import Drawer from '@/pages/Game/components/Drawer';
-
-import { db } from '@/db';
-import { useParams, useNavigate, useLoaderData } from 'react-router-dom';
-import GameAppBar from '@/pages/Game/components/GameAppBar';
-import Box from '@mui/material/Box';
-
-import createGameStore from '@/state/useGameStore';
-import { useLiveQuery } from 'dexie-react-hooks';
-import PromotionDialog from './components/PromotionDialog';
-import ResultsDialog from './components/ResultsDialog';
-import InteractiveBoard from '@/components/InteractiveBoard';
+import { useEffect, useMemo, useState } from 'react';
 import { Paper } from '@mui/material';
-import RestartDialog from './components/RestartDialog';
+import Box from '@mui/material/Box';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
+
+import InteractiveBoard from '@/components/InteractiveBoard';
+import Stats from '@/components/Stats';
+import { db } from '@/db';
+import BottomBar from '@/pages/Game/components/BottomBar';
+import Drawer from '@/pages/Game/components/Drawer';
+import GameAppBar from '@/pages/Game/components/GameAppBar';
+import createGameStore from '@/state/useGameStore';
+
 import DrawDialog from './components/DrawDialog';
+import PromotionDialog from './components/PromotionDialog';
+import RestartDialog from './components/RestartDialog';
+import ResultsDialog from './components/ResultsDialog';
 import SurrenderDialog from './components/SurrenderDialog';
 
 export default function Game() {
@@ -69,7 +67,8 @@ export default function Game() {
     state => state.historyIndex == state.history.length - 1,
   );
 
-  const draggable = useGameStore(state => new Set(state.legalMoves.keys()));
+  const legalMoves = useGameStore(state => state.legalMoves);
+  const draggable = useMemo(() => new Set(legalMoves.keys()), [legalMoves]);
 
   const loadGame = useGameStore(state => state.loadGame);
   const handleCellClick = useGameStore(state => state.handleCellClick);

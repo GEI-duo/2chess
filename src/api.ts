@@ -1,5 +1,6 @@
 import { Chess, SQUARES } from '@/api/chess.ts';
 import { getColor } from '@/api/color.ts';
+
 import { coordinateRowNumber } from './api/coordinates';
 import { inject } from './api/di/container';
 import { TOKENS } from './api/di/tokens';
@@ -50,7 +51,7 @@ export function moves(
 
 export function fen(): FenString {
   const fen = chess.fen;
-  console.log(fen)
+  console.log(fen);
   return fen;
 }
 

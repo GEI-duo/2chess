@@ -1,10 +1,11 @@
-import PieceStack from '@/components/PieceStack';
-import UserProfile from '@/components/UserProfile';
-import Timer from '@/components/Timer';
+import { memo } from 'react';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { memo } from 'react';
+
+import PieceStack from '@/components/PieceStack';
+import Timer from '@/components/Timer';
+import UserProfile from '@/components/UserProfile';
 
 interface StatsProps {
   color: Color;

@@ -1,7 +1,7 @@
 import { Container } from 'brandi';
-import { TOKENS } from './tokens';
 
 import Factory from './factories/offline';
+import { TOKENS } from './tokens';
 
 const factory = new Factory();
 const container = new Container();

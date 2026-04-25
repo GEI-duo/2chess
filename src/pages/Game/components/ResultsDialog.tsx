@@ -1,10 +1,10 @@
-import DialogActions from '@mui/material/DialogActions';
+import { useState } from 'react';
+import { DialogContent } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DialogContent } from '@mui/material';
 
 interface ResultsDialogProps {
   game: Game;

@@ -1,22 +1,23 @@
-import { Link } from 'react-router-dom';
-
-import MenuAppBar from '@/components/AppBar';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Fab from '@mui/material/Fab';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import NightModeToggle from '@/components/NightModeToggle';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import GameFilter from '@/pages/Games/components/Search/GameFilter';
-import SortButton from '@/pages/Games/components/Search/SortButton';
-import SearchBar from '@/pages/Games/components/Search/SearchBar';
-import FilterButton from '@/pages/Games/components/Search/FilterButton';
-import GameList from '@/pages/Games/components/GameList';
-import { filteredAtom } from './state/gameFilters';
+import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
-import Tooltip from '@mui/material/Tooltip';
+import { Link } from 'react-router-dom';
+
+import MenuAppBar from '@/components/AppBar';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import NightModeToggle from '@/components/NightModeToggle';
+import GameList from '@/pages/Games/components/GameList';
+import FilterButton from '@/pages/Games/components/Search/FilterButton';
+import GameFilter from '@/pages/Games/components/Search/GameFilter';
+import SearchBar from '@/pages/Games/components/Search/SearchBar';
+import SortButton from '@/pages/Games/components/Search/SortButton';
+
+import { filteredAtom } from './state/gameFilters';
 
 export default function Games() {
   const [filtered] = useAtom(filteredAtom);

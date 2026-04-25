@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom';
-import Board from '@/components/Board';
-import Stats from '@/components/Stats';
+import React, { useEffect, useState } from 'react';
+import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import MoreTimeRoundedIcon from '@mui/icons-material/MoreTimeRounded';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
@@ -13,16 +16,14 @@ import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
-import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded';
-import MoreTimeRoundedIcon from '@mui/icons-material/MoreTimeRounded';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import React, { useEffect, useState } from 'react';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
+import Board from '@/components/Board';
+import Stats from '@/components/Stats';
 import EditGame from '@/pages/Games/components/GamePreview/GamePreviewEditDialog';
 import createGameStore from '@/state/useGameStore';
-import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 
 interface GamePreviewProps {
   game: Game;

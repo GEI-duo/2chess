@@ -1,10 +1,13 @@
-import { db, getFilteredGames } from '@/db';
-import { useLiveQuery } from 'dexie-react-hooks';
-import GamePreview from '@/pages/Games/components/GamePreview/GamePreview';
-import Box from '@mui/material/Box';
+import { useCallback, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { Button, CircularProgress, IconButton, Snackbar } from '@mui/material';
+import Box from '@mui/material/Box';
+import { useLiveQuery } from 'dexie-react-hooks';
 import { useAtom } from 'jotai';
+import { useTranslation } from 'react-i18next';
+
+import { db, getFilteredGames } from '@/db';
+import GamePreview from '@/pages/Games/components/GamePreview/GamePreview';
 import {
   filteredAtom,
   filtersAtom,
@@ -17,10 +20,7 @@ import {
   sortedAtom,
   toDateAtom,
 } from '@/pages/Games/state/gameFilters';
-import { Button, CircularProgress, IconButton, Snackbar } from '@mui/material';
 
-import { useTranslation } from 'react-i18next';
-import { useCallback, useState } from 'react';
 import NewGameCard from './GamePreview/NewGameCard';
 
 export default function GameList() {

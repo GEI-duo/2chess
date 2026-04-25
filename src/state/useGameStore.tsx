@@ -1,7 +1,7 @@
 import { create } from 'zustand';
+
 import * as api from '@/api';
 import { db } from '@/db';
-
 
 interface GameStore {
   // GLOBAL
@@ -102,10 +102,7 @@ export default function createGameStore(game: Game) {
 
   const gameState = history[history.length - 1];
 
-  api.init(
-    gameState.fen,
-    true
-  );
+  api.init(gameState.fen, true);
   const turn = api.turn();
   const piecesFen = api.piecesFen();
   const legalMoves = api.moves();
@@ -228,9 +225,7 @@ export default function createGameStore(game: Game) {
 
       const isLiveGame = index === state.history.length - 1;
       const gameState = state.history[index];
-      api.init(
-        gameState.fen,
-      );
+      api.init(gameState.fen);
 
       const elapsed =
         state.elapsedTime +

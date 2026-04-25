@@ -1,10 +1,11 @@
+import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
+import { IconButton, Paper } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import { useAtom } from 'jotai';
-import { searchAtom } from '@/pages/Games/state/gameFilters';
 import { useTranslation } from 'react-i18next';
-import { IconButton, Paper } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
+
+import { searchAtom } from '@/pages/Games/state/gameFilters';
 
 export default function SearchBar() {
   const [search, setSearch] = useAtom(searchAtom);

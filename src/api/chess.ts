@@ -1,6 +1,7 @@
 import GameCastlingAvailability from '@/api/CastlingAvailability';
-import { checkSpecialMove, move, moves, isKingAttacked } from '@/api/moves.ts';
 import { isWhite, otherColor } from '@/api/color.ts';
+import { checkSpecialMove, isKingAttacked, move, moves } from '@/api/moves.ts';
+
 import { inject } from './di/container';
 import { TOKENS } from './di/tokens';
 import Calculator from './interfaces/calculator';
@@ -21,23 +22,47 @@ export class Chess {
     public halfMoveClock: number,
     public fullMoveNumber: number,
 
-    private _scores_calculator: Calculator<number> = inject(TOKENS.ScoresCalculator),
+    private _scores_calculator: Calculator<number> = inject(
+      TOKENS.ScoresCalculator,
+    ),
     // private _moves_calculator: Calculator<Moves> = inject(TOKENS.MovesCalculator), TODO
     private _fen_calculator: Serializer<Chess> = inject(TOKENS.ChessSerializer),
-  ) { }
+  ) {}
 
-  get fen(): FenString { return this._fen_calculator.serialize(this); }
-  get turn(): Color { return this._playerTurn; }
-  get castlingAvailability(): GameCastlingAvailability { return this._gameCastlingAvailability; }
-  get pieces(): BoardPiece { return this._pieces; }
-  get enPassantTarget(): Coordinate { return this._enPassantTarget; }
-  get whiteCaptured(): CapturedPieces { return this._whiteCaptured; }
-  get blackCaptured(): CapturedPieces { return this._blackCaptured; }
-  get score(): number { return this._scores_calculator.calculate(this); }
-  get isCheck(): boolean { return isKingAttacked(this._playerTurn, this); }
-  get isFiftyMoves(): boolean { return this.halfMoveClock >= 50; }
+  get fen(): FenString {
+    return this._fen_calculator.serialize(this);
+  }
+  get turn(): Color {
+    return this._playerTurn;
+  }
+  get castlingAvailability(): GameCastlingAvailability {
+    return this._gameCastlingAvailability;
+  }
+  get pieces(): BoardPiece {
+    return this._pieces;
+  }
+  get enPassantTarget(): Coordinate {
+    return this._enPassantTarget;
+  }
+  get whiteCaptured(): CapturedPieces {
+    return this._whiteCaptured;
+  }
+  get blackCaptured(): CapturedPieces {
+    return this._blackCaptured;
+  }
+  get score(): number {
+    return this._scores_calculator.calculate(this);
+  }
+  get isCheck(): boolean {
+    return isKingAttacked(this._playerTurn, this);
+  }
+  get isFiftyMoves(): boolean {
+    return this.halfMoveClock >= 50;
+  }
 
-  set enPassantTarget(coordinate: Coordinate) { this._enPassantTarget = coordinate; }
+  set enPassantTarget(coordinate: Coordinate) {
+    this._enPassantTarget = coordinate;
+  }
 
   addCaptured(piece: Piece) {
     const capturedPieces = isWhite(piece)

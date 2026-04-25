@@ -1,18 +1,18 @@
+import React, { memo } from 'react';
+import FlipCameraAndroidRoundedIcon from '@mui/icons-material/FlipCameraAndroidRounded';
+import FullscreenExitRoundedIcon from '@mui/icons-material/FullscreenExitRounded';
+import FullscreenRoundedIcon from '@mui/icons-material/FullscreenRounded';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import UpdateDisabledRoundedIcon from '@mui/icons-material/UpdateDisabledRounded';
+import UpdateRoundedIcon from '@mui/icons-material/UpdateRounded';
+import { Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import FullscreenRoundedIcon from '@mui/icons-material/FullscreenRounded';
-import FullscreenExitRoundedIcon from '@mui/icons-material/FullscreenExitRounded';
-import FlipCameraAndroidRoundedIcon from '@mui/icons-material/FlipCameraAndroidRounded';
-
-import UpdateRoundedIcon from '@mui/icons-material/UpdateRounded';
-import UpdateDisabledRoundedIcon from '@mui/icons-material/UpdateDisabledRounded';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import React, { memo } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuAppBar from '@/components/AppBar';
-import { Tooltip } from '@mui/material';
 import { t } from 'i18next';
+
+import MenuAppBar from '@/components/AppBar';
 
 interface GameAppBarProps {
   isFullscreen?: boolean;

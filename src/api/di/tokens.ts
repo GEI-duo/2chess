@@ -1,7 +1,8 @@
 import { token } from 'brandi';
-import Calculator from '@/api/interfaces/calculator';
+
 import Serializer from '@/api//interfaces/serializers';
 import { Chess } from '@/api/chess';
+import Calculator from '@/api/interfaces/calculator';
 
 export const TOKENS = {
   MovesCalculator: token<Calculator<Moves>>('MovesCalculator'),
