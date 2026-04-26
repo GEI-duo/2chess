@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { appPath } from '@/basePath';
+
 interface AppBarProps {
   showMenu?: boolean;
   handleMenu?: () => void;
@@ -42,7 +44,7 @@ export default function AppBar({
             </Toolbar>
           )}
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/2chess">2Chess</Link>
+            <Link to={appPath('/')}>2Chess</Link>
           </Typography>
           <Stack direction="row" spacing={2} className="items-center">
             {children}

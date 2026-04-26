@@ -14,7 +14,7 @@
   "launch_handler": {
     "client_mode": ["navigate-new", "auto"]
   },
-  "scope": "/2chess/",
+  "scope": "./",
   "handle_links": "not-preferred",
   "screenshots": [
     {

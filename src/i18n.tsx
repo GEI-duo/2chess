@@ -4,6 +4,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpBackend, { HttpBackendOptions } from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
+import { appPath } from '@/basePath';
+
 export const availableLanguages = [
   {
     code: 'en',
@@ -30,7 +32,7 @@ i18n
   // Configure i18n (https://www.i18next.com/overview/configuration-options=
   .init<HttpBackendOptions>({
     backend: {
-      loadPath: '/2chess/locales/{{lng}}/{{ns}}.json',
+      loadPath: appPath('/locales/{{lng}}/{{ns}}.json'),
     },
     fallbackLng: {
       'en-US': ['en'],

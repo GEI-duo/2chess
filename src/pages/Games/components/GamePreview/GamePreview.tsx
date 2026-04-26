@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { appPath } from '@/basePath';
 import Board from '@/components/Board';
 import Stats from '@/components/Stats';
 import EditGame from '@/pages/Games/components/GamePreview/GamePreviewEditDialog';
@@ -165,7 +166,7 @@ export default function GamePreview({ game, deleteGame }: GamePreviewProps) {
             size="compact"
             showTimer={timeControl != 0}
           />
-          <Link to={`/2chess/games/${gameId}`} className="flex w-full">
+          <Link to={appPath(`/games/${gameId}`)} className="flex w-full">
             <CardActionArea>
               <CardMedia className="flex w-full aspect-square">
                 <Board fen={piecesFen} highlighted={highlighted} />

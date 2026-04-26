@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 
+import { appPath } from '@/basePath';
 import InteractiveBoard from '@/components/InteractiveBoard';
 import Stats from '@/components/Stats';
 import { db } from '@/db';
@@ -128,7 +129,7 @@ export default function Game() {
   }, [togglePlay, hasGameEnded, isTimed]);
 
   const handleExit = () => {
-    navigate('/2chess');
+    navigate(appPath('/'));
   };
 
   const handleRestart = (restart: boolean) => {
@@ -243,7 +244,7 @@ export default function Game() {
       {hasGameEnded && isLiveGame && (
         <ResultsDialog
           game={game}
-          onRematch={() => navigate('/2chess/games')}
+          onRematch={() => navigate(appPath('/games'))}
         />
       )}
 

@@ -11,13 +11,15 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { appPath } from '@/basePath';
+
 export default function NewGameCard() {
   const { t } = useTranslation();
 
   return (
     <>
       <Card className="h-[30rem] flex">
-        <CardActionArea component={Link} to={'/2chess/games/'}>
+        <CardActionArea component={Link} to={appPath('/games/')}>
           <CardContent className="flex flex-col h-full gap-2 justify-center">
             <Tooltip
               title={t('add_game')}

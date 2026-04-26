@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
+import { appPath } from '@/basePath';
 import { db } from '@/db';
 
 const ErrorPage = lazy(() => import('@/pages/ErrorPage/ErrorPage'));
@@ -63,20 +64,20 @@ const newGame: ActionFunction = async ({ request }) => {
     await db.games.update(id, { title: `Game #${id}` });
   }
 
-  return redirect(`/2chess/games/${id}`);
+  return redirect(appPath(`/games/${id}`));
 };
 
 const loadGame: LoaderFunction = async ({ params }) => {
   const game = await db.games.get(Number(params.gameId));
   if (game === undefined) {
-    return redirect('/2chess/404');
+    return redirect(appPath('/404'));
   }
   return game;
 };
 
 const router = createBrowserRouter([
   {
-    path: '/2chess/',
+    path: appPath('/'),
     element: (
       <Suspense fallback={null}>
         <Layout />
@@ -84,7 +85,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: '/2chess/',
+        path: appPath('/'),
         element: (
           <Suspense fallback={null}>
             <Games />
@@ -92,7 +93,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/2chess/games',
+        path: appPath('/games'),
         element: (
           <Suspense fallback={null}>
             <NewGame />
@@ -101,7 +102,7 @@ const router = createBrowserRouter([
         action: newGame,
       },
       {
-        path: '/2chess/games/:gameId',
+        path: appPath('/games/:gameId'),
         element: (
           <Suspense fallback={null}>
             <Game />

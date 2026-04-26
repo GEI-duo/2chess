@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'react-router-dom';
 
+import { appPath } from '@/basePath';
 import MenuAppBar from '@/components/AppBar';
 import UserProfile from '@/components/UserProfile';
 
@@ -22,7 +23,11 @@ export default function NewGame() {
   return (
     <>
       <MenuAppBar />
-      <Form method="post" action="/2chess/games" className="overflow-y-auto">
+      <Form
+        method="post"
+        action={appPath('/games')}
+        className="overflow-y-auto"
+      >
         <Box className="flex flex-col items-center gap-16 m-auto max-w-96 min-w-0 w-full py-12 px-2">
           <Typography variant="h4">{t('new_game')}</Typography>
           <Box className="flex flex-col justify-center w-full gap-12">

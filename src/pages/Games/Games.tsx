@@ -8,6 +8,7 @@ import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { appPath } from '@/basePath';
 import MenuAppBar from '@/components/AppBar';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import NightModeToggle from '@/components/NightModeToggle';
@@ -50,7 +51,7 @@ export default function Games() {
         </Box>
       </Box>
       <Tooltip title={t('add_game')} placement="top" arrow>
-        <Link to="/2chess/games" className="absolute bottom-12 right-12">
+        <Link to={appPath('/games')} className="absolute bottom-12 right-12">
           <Fab color="primary" aria-label="add" className="shadow-lg">
             <AddRoundedIcon />
           </Fab>
