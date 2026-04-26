@@ -4,6 +4,8 @@ import { resolve } from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -34,13 +36,9 @@ export default ({ mode }: { mode: string }) => {
     resolve: {
       alias: [{ find: '@', replacement: resolve(__dirname, './src') }],
     },
-    plugins: [
-      tailwindcss(),
-      react(),
-      svgr({
-        include: '**/*.svg?react',
-      }),
-    ],
+    plugins: [tailwindcss(), react(), svgr({
+      include: '**/*.svg?react',
+    }), cloudflare()],
     server: {
       host: true,
     },
