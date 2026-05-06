@@ -8,9 +8,14 @@ import svgr from 'vite-plugin-svgr';
 export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
+  const base = env.VITE_BASE_URL || '/';
+  const baseDir = env.VITE_BASE_URL?.replace(/^\//, '').replace(/\/$/, '');
+  const outDir = baseDir ? `dist/${baseDir}` : 'dist';
+
   return defineConfig({
-    base: env.VITE_BASE_URL || '/',
+    base,
     build: {
+      outDir,
       rollupOptions: {
         output: {
           manualChunks(id) {
