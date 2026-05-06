@@ -69,6 +69,12 @@
   "pnpm": {
     "executionEnv": {
       "nodeVersion": "20.19.4"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@swc/core",
+      "esbuild",
+      "sharp",
+      "workerd"
+    ]
   }
 }
