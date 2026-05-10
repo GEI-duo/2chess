@@ -4,20 +4,14 @@ import { resolve } from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
-import { cloudflare } from "@cloudflare/vite-plugin";
-
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
-  const base = env.VITE_BASE_URL || '/';
-  const baseDir = env.VITE_BASE_URL?.replace(/^\//, '').replace(/\/$/, '');
-  const outDir = baseDir ? `dist/${baseDir}` : 'dist';
-
   return defineConfig({
-    base,
+    base: env.VITE_BASE_URL || '/',
     build: {
-      outDir,
+      outDir: 'dist',
       rollupOptions: {
         output: {
           manualChunks(id) {
@@ -41,9 +35,13 @@ export default ({ mode }: { mode: string }) => {
     resolve: {
       alias: [{ find: '@', replacement: resolve(__dirname, './src') }],
     },
-    plugins: [tailwindcss(), react(), svgr({
-      include: '**/*.svg?react',
-    }), cloudflare()],
+    plugins: [
+      tailwindcss(),
+      react(),
+      svgr({
+        include: '**/*.svg?react',
+      }),
+    ],
     server: {
       host: true,
     },
