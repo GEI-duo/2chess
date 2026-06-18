@@ -40,7 +40,7 @@ jobs:
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
     - name: Build
-      run: VITE_BASE_PATH=/2chess/ pnpm build
+      run: VITE_BASE_URL=${{ vars.VITE_BASE_URL }} pnpm build
     - name: Setup Pages
       uses: actions/configure-pages@v4
     - name: Upload artifact
