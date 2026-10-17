@@ -1,0 +1,43 @@
+version: '3'
+
+vars:
+  S3_BUCKET: jordigarciaventura-2chess
+  CLOUDFRONT_DISTRIBUTION_ID: E1CHR585LVJBS3
+
+tasks:
+  default:
+    cmds:
+    - task --list
+    silent: true
+
+  login:
+    desc: Authenticate with AWS before deploying static files.
+    cmds:
+    - aws login
+    silent: true
+
+  build:
+    desc: Build static files from ./src/ to ./dist/.
+    cmds:
+    - VITE_BASE_URL=/2chess/ pnpm build
+    silent: true
+
+  deploy:
+    desc: Deploy static files from ./dist/ to S3, deleting obsolete files.
+    cmds:
+    - task: build
+    - aws s3 sync ./dist/ s3://{{.S3_BUCKET}}/ --delete
+    silent: true
+
+  invalidate:
+    desc: Invalidate all CloudFront cache entries so visitors receive the latest files.
+    cmds:
+    - >-
+      aws cloudfront create-invalidation --distribution-id {{.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"
+    silent: true
+
+  release:
+    desc: Deploy static files to S3 and invalidate the CloudFront cache.
+    cmds:
+    - task: deploy
+    - task: invalidate
